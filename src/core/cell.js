@@ -1,4 +1,5 @@
 import { expr2xy, xy2expr } from './alphabet';
+import form_field from "../component/form_field";
 
 // Converting infix expression to a suffix expression
 // src: AVERAGE(SUM(A1,A2), B1) + 50 + B20
@@ -160,7 +161,11 @@ const evalSuffixExpr = (srcStack, formulaMap, cellRender, cellList) => {
       for (let j = 0; j < len; j += 1) {
         params.push(stack.pop());
       }
-      // console.log('::::params:', formulaMap, expr,  formula, params);
+      console.log('::::params:', formulaMap, expr, formula, params);
+      if (!formulaMap[formula]) {
+        console.error(`formula ${formula} doesn't exist.`);
+        return;
+      }
       stack.push(formulaMap[formula].render(params.reverse()));
     } else {
       // console.log('cellList:', cellList, expr);
